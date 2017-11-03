@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DEMO APP</title>
+</head>
+<body>
+<ul></ul>
+<script type="text/javascript">
+	var evtSource = new EventSource('http://localhost:8080/random');
+	var eventList = document.querySelector('ul');
+  	evtSource.onmessage = function(e) {
+  		var newElement = document.createElement("li");
+  		var eventsListed = document.querySelectorAll('li');
+		if (eventsListed.length === 20) {
+			evtSource.close();
+			return;
+		}
+  		newElement.style.color = "red";
+
+ 		newElement.textContent = "message: " + e.data; 
+  		eventList.appendChild(newElement);
+  	}
+</script>
+</body>
+
+</html>
